@@ -32,41 +32,34 @@ public class SensorSpecification {
 
     private static Predicate createPredicate(String key, String value, Root<Sensor> root, CriteriaBuilder criteriaBuilder, Class<Sensor> entityClass) {
         try {
-            if (isJsonField(key)) {
-                return createJsonPredicate(key, value, root, criteriaBuilder);
-            } else {
-                return createFieldPredicate(key, value, root, criteriaBuilder, entityClass);
-            }
+            return createFieldPredicate(key, value, root, criteriaBuilder, entityClass);
         } catch (Exception e) {
             log.error("Error creating predicate for field: {}", key, e);
             return null;
         }
     }
 
-    private static boolean isJsonField(String key) {
-        return key.contains(".") || "temperature".equals(key) || "humidity".equals(key) || "brightness".equals(key);
-    }
-
-    private static Predicate createJsonPredicate(String key, String value, Root<Sensor> root, CriteriaBuilder criteriaBuilder) {
-        String jsonPath = key.contains(".") ? key.replace(".", ".") : "$." + key + ".value";
-        return criteriaBuilder.like(
-                criteriaBuilder.function("json_extract", String.class, root.get("data"), criteriaBuilder.literal(jsonPath)),
-                "%" + value + "%"
-        );
-    }
-
-    private static Predicate createFieldPredicate(String key, String value, Root<Sensor> root, CriteriaBuilder criteriaBuilder, Class<Sensor> entityClass) throws NoSuchFieldException {
+    private static Predicate createFieldPredicate(String key, String value, Root<Sensor> root, CriteriaBuilder criteriaBuilder, Class<Sensor> entityClass){
         Field field = getField(entityClass, key);
         if (field != null) {
             field.setAccessible(true);
-            if ("id".equals(key)) {
-                return criteriaBuilder.equal(root.get(field.getName()), Long.valueOf(value));
+            if (isNumeric(value)) {
+                return criteriaBuilder.equal(root.get(field.getName()), Double.valueOf(value));
             } else {
                 return criteriaBuilder.like(root.get(field.getName()), "%" + value + "%");
             }
         } else {
             log.error("Field not found: {}", key);
             return null;
+        }
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

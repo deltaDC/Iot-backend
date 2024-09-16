@@ -28,7 +28,8 @@ public class SensorController {
     private final SensorService sensorService;
     private final MqttClient mqttClient;
 
-//    mosquitto_pub -h localhost -t iot-data -m '{"name":"sensor 1","data":{"temperature":{"value":22,"unit":"Celsius"},"humidity":{"value":45,"unit":"Percentage"},"brightness":{"value":300,"unit":"Lux"}}}'
+//    mosquitto_pub -h localhost -t iot-data -m "{\"name\":\"sensor 1\",\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"}}}"
+
 
     @PostConstruct
     public void init() {
