@@ -50,6 +50,7 @@ public class SensorController {
                                               @RequestParam(required = false) String sortBy,
                                               @RequestParam(required = false) String sortDirection) {
         Page<Sensor> entities = sensorService.list(page, size, params, sortBy, sortDirection);
+
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)

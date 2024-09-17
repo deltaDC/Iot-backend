@@ -26,6 +26,10 @@ public class SensorService {
 
     private final ObjectMapper objectMapper;
 
+    /**
+     * Handle new sensor data from the MQTT broker, parse it and save it to the database
+     * @param jsonMessage The JSON message from the MQTT broker
+     */
     public void handleNewSensorData(String jsonMessage) {
         try {
             log.info("Handling sensor data: {}", jsonMessage);
@@ -34,9 +38,15 @@ public class SensorService {
             JsonNode dataNode = jsonNode.get("data");
             String data = objectMapper.writeValueAsString(dataNode);
 
-            Double temperature = dataNode.has("temperature") && dataNode.get("temperature").has("value") ? dataNode.get("temperature").get("value").asDouble() : null;
-            Double humidity = dataNode.has("humidity") && dataNode.get("humidity").has("value") ? dataNode.get("humidity").get("value").asDouble() : null;
-            Double brightness = dataNode.has("brightness") && dataNode.get("brightness").has("value") ? dataNode.get("brightness").get("value").asDouble() : null;
+            Double temperature = dataNode.has("temperature") && dataNode.get("temperature").has("value")
+                    ? dataNode.get("temperature").get("value").asDouble()
+                    : null;
+            Double humidity = dataNode.has("humidity") && dataNode.get("humidity").has("value")
+                    ? dataNode.get("humidity").get("value").asDouble()
+                    : null;
+            Double brightness = dataNode.has("brightness") && dataNode.get("brightness").has("value")
+                    ? dataNode.get("brightness").get("value").asDouble()
+                    : null;
 
             Sensor sensor = Sensor.builder()
                     .name(name)
@@ -52,6 +62,16 @@ public class SensorService {
         }
     }
 
+    /**
+     * List the sensor data with pagination and sorting by params
+     * @param params This Map should contain the key-value pairs of the fields to filter of
+     *               the Sensor entity class like: name, temperature, humidity, brightness, createdAt
+     * @param page The page number to retrieve, default is 0
+     * @param size The number of items to retrieve per page, default is 30
+     * @param sortBy The field to sort by, default is id
+     * @param sortDirection The direction to sort by, default is ASC
+     * @return A Page of Sensor entities
+     */
     public Page<Sensor> list(int page, int size, Map<String, String> params,
                              @RequestParam(required = false) String sortBy,
                              @RequestParam(required = false) String sortDirection) {
