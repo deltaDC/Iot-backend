@@ -43,11 +43,25 @@ public class MqttService {
             mqttClient.subscribe(topic, (t, msg) -> {
                 String message = new String(msg.getPayload());
                 future.complete(message);
+                unsubscribe(topic);
             });
         } catch (MqttException e) {
             log.error("Failed to subscribe to topic", e);
             future.completeExceptionally(e);
         }
         return future.get();
+    }
+
+    /**
+     * Unsubscribe from a topic
+     *
+     * @param topic String
+     */
+    public void unsubscribe(String topic) {
+        try {
+            mqttClient.unsubscribe(topic);
+        } catch (MqttException e) {
+            log.error("Failed to unsubscribe from topic", e);
+        }
     }
 }
