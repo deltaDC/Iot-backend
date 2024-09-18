@@ -1,6 +1,6 @@
 package com.deltadc.iot.specification;
 
-import com.deltadc.iot.model.entities.sensor.Sensor;
+import com.deltadc.iot.model.entities.Sensor;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;

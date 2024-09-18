@@ -38,17 +38,4 @@ public class HistoryController {
                         .build()
         );
     }
-
-    @PostMapping("/create")
-    public ResponseEntity<BaseResponse> create(@RequestBody History history) {
-        History createdHistory = historyService.create(history);
-
-        return ResponseEntity.ok(
-                BaseResponse.builder()
-                        .status(HttpStatus.OK)
-                        .message("Success")
-                        .response(createdHistory)
-                        .build()
-        );
-    }
 }

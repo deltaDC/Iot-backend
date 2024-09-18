@@ -1,6 +1,6 @@
 package com.deltadc.iot.service;
 
-import com.deltadc.iot.model.entities.sensor.Sensor;
+import com.deltadc.iot.model.entities.Sensor;
 import com.deltadc.iot.repository.SensorRepository;
 import com.deltadc.iot.specification.SensorSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +34,6 @@ public class SensorService {
         try {
             log.info("Handling sensor data: {}", jsonMessage);
             JsonNode jsonNode = objectMapper.readTree(jsonMessage);
-            String name = jsonNode.get("name").asText();
             JsonNode dataNode = jsonNode.get("data");
             String data = objectMapper.writeValueAsString(dataNode);
 
@@ -49,7 +48,6 @@ public class SensorService {
                     : null;
 
             Sensor sensor = Sensor.builder()
-                    .name(name)
                     .data(data)
                     .temperature(temperature)
                     .humidity(humidity)

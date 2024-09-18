@@ -1,6 +1,6 @@
 package com.deltadc.iot.controller;
 
-import com.deltadc.iot.model.entities.sensor.Sensor;
+import com.deltadc.iot.model.entities.Sensor;
 import com.deltadc.iot.response.BaseResponse;
 import com.deltadc.iot.service.SensorService;
 import jakarta.annotation.PostConstruct;
@@ -28,7 +28,7 @@ public class SensorController {
     private final SensorService sensorService;
     private final MqttClient mqttClient;
 
-//    mosquitto_pub -h localhost -t iot-data -m "{\"name\":\"sensor 1\",\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"}}}"
+//    mosquitto_pub -h localhost -t iot-data -m "{\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"}}}"
 
 
     @PostConstruct

@@ -1,8 +1,7 @@
 package com.deltadc.iot.model.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -15,7 +14,7 @@ import lombok.*;
 @Table(name = "history")
 public class History extends BaseEntity{
 
-    private String name;
+    private Long deviceId;
 
     private String status;
 }

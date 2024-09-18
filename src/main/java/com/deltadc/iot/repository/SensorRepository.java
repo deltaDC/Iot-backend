@@ -1,6 +1,6 @@
 package com.deltadc.iot.repository;
 
-import com.deltadc.iot.model.entities.sensor.Sensor;
+import com.deltadc.iot.model.entities.Sensor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
