@@ -46,9 +46,9 @@ public class SensorController {
     @GetMapping("/list")
     public ResponseEntity<BaseResponse> list (@Nullable @RequestParam Map<String, String> params,
                                               @RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "30") int size,
-                                              @RequestParam(required = false) String sortBy,
-                                              @RequestParam(required = false) String sortDirection) {
+                                              @RequestParam(defaultValue = "10") int size,
+                                              @RequestParam(required = false, defaultValue = "id") String sortBy,
+                                              @RequestParam(required = false, defaultValue = "ASC") String sortDirection) {
         Page<Sensor> entities = sensorService.list(page, size, params, sortBy, sortDirection);
 
         return ResponseEntity.ok(
