@@ -26,8 +26,8 @@ public class HistoryController {
     public ResponseEntity<BaseResponse> list (@Nullable @RequestParam Map<String, String> params,
                                               @RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size,
-                                              @RequestParam(required = false) String sortBy,
-                                              @RequestParam(required = false) String sortDirection) {
+                                              @RequestParam(required = false, defaultValue = "id") String sortBy,
+                                              @RequestParam(required = false, defaultValue = "ASC") String sortDirection) {
         Page<History> entities = historyService.list(page, size, params, sortBy, sortDirection);
 
         return ResponseEntity.ok(

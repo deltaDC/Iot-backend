@@ -20,7 +20,7 @@ public class SensorSpecification {
             List<Predicate> predicates = new ArrayList<>();
             if (criteria != null) {
                 criteria.forEach((key, value) -> {
-                    Predicate predicate = createPredicate(key, value, root, criteriaBuilder, entityClass);
+                    Predicate predicate = createPredicate(key, value.trim(), root, criteriaBuilder, entityClass);
                     if (predicate != null) {
                         predicates.add(predicate);
                     }

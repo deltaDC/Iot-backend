@@ -16,5 +16,7 @@ public class History extends BaseEntity{
 
     private Long deviceId;
 
+    private String deviceName;
+
     private String status;
 }

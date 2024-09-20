@@ -67,9 +67,12 @@ public class DeviceController {
     public ResponseEntity<BaseResponse> create(@RequestBody ToggleLedRequest request) throws ExecutionException, InterruptedException {
         deviceService.toggleLed(request);
 
+        String deviceName = deviceService.getDeviceNameById(request.getDeviceId());
+
         History history = historyService.create(
                 History.builder()
                     .deviceId(request.getDeviceId())
+                    .deviceName(deviceName)
                     .status(request.getStatus())
                     .build()
         );

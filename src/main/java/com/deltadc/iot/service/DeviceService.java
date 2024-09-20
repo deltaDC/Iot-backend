@@ -67,4 +67,10 @@ public class DeviceService {
             throw new RuntimeException("LED status failed to update");
         }
     }
+
+
+    public String getDeviceNameById(Long deviceId) {
+        Device device = deviceRepository.findById(deviceId).orElse(null);
+        return device != null ? device.getName() : null;
+    }
 }
