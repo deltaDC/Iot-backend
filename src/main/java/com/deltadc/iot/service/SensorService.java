@@ -84,4 +84,8 @@ public class SensorService {
                 pageable
         );
     }
+
+    public Sensor latest() {
+        return sensorRepository.findTopByOrderByIdDesc();
+    }
 }

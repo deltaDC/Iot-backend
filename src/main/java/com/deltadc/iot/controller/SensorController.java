@@ -59,4 +59,17 @@ public class SensorController {
                         .build()
         );
     }
+
+    @GetMapping("/latest")
+    public ResponseEntity<BaseResponse> latest() {
+        Sensor sensor = sensorService.latest();
+
+        return ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message("Success")
+                        .response(sensor)
+                        .build()
+        );
+    }
 }
