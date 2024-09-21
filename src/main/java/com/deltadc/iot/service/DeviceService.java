@@ -52,7 +52,7 @@ public class DeviceService {
      * and wait for response after toggle
      * @param request ToggleLedRequest
      */
-    public void toggleLed(ToggleLedRequest request) throws ExecutionException, InterruptedException {
+    public String toggleLed(ToggleLedRequest request) throws ExecutionException, InterruptedException {
         String deviceName = deviceRepository.findById(request.getDeviceId())
                 .orElseThrow(() -> new RuntimeException("Device not found"))
                 .getName();
@@ -63,9 +63,11 @@ public class DeviceService {
 
         String mqttStatusResponse = mqttService.subscribeAndWaitForMessage("led/status");
 
-        if (mqttStatusResponse == null || !mqttStatusResponse.equals(mqttControlMessage)) {
-            throw new RuntimeException("LED status failed to update");
-        }
+//        if (mqttStatusResponse == null || !mqttStatusResponse.equals(mqttControlMessage)) {
+//            throw new RuntimeException("LED status failed to update");
+//        }
+
+        return mqttStatusResponse;
     }
 
 

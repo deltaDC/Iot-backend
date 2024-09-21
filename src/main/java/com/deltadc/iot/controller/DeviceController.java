@@ -65,11 +65,11 @@ public class DeviceController {
 
     @PostMapping("/toggle")
     public ResponseEntity<BaseResponse> create(@RequestBody ToggleLedRequest request) throws ExecutionException, InterruptedException {
-        deviceService.toggleLed(request);
+        String response = deviceService.toggleLed(request);
 
         String deviceName = deviceService.getDeviceNameById(request.getDeviceId());
 
-        History history = historyService.create(
+        historyService.create(
                 History.builder()
                     .deviceId(request.getDeviceId())
                     .deviceName(deviceName)
@@ -81,7 +81,7 @@ public class DeviceController {
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
                         .message("Success")
-                        .response(history)
+                        .response(response)
                         .build()
         );
     }
