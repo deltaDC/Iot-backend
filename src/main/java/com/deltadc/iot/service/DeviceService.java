@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -53,15 +54,24 @@ public class DeviceService {
      * @param request ToggleLedRequest
      */
     public String toggleLed(ToggleLedRequest request) throws ExecutionException, InterruptedException {
-        String deviceName = deviceRepository.findById(request.getDeviceId())
-                .orElseThrow(() -> new RuntimeException("Device not found"))
-                .getName();
+        Device device = deviceRepository.findById(request.getDeviceId())
+                .orElseThrow(() -> new RuntimeException("Device not found"));
+
+        String deviceName = device.getName();
 
         String mqttControlMessage = deviceName + " " + request.getStatus();
 
         mqttService.publish("led/control", mqttControlMessage);
 
         String mqttStatusResponse = mqttService.subscribeAndWaitForMessage("led/status");
+
+        device.setStatus(
+                Objects.equals(device.getStatus(), "ON")
+                        ? "OFF"
+                        : "ON"
+        );
+
+        deviceRepository.save(device);
 
 //        if (mqttStatusResponse == null || !mqttStatusResponse.equals(mqttControlMessage)) {
 //            throw new RuntimeException("LED status failed to update");

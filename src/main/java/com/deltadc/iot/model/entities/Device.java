@@ -16,4 +16,6 @@ import lombok.*;
 public class Device extends BaseEntity {
 
     private String name;
+
+    private String status;
 }
