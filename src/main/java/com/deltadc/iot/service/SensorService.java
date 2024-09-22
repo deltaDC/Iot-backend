@@ -1,5 +1,6 @@
 package com.deltadc.iot.service;
 
+import com.deltadc.iot.controller.SensorSocketHandler;
 import com.deltadc.iot.model.entities.Sensor;
 import com.deltadc.iot.repository.SensorRepository;
 import com.deltadc.iot.specification.SensorSpecification;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Service
@@ -23,7 +25,7 @@ import java.util.Map;
 public class SensorService {
 
     private final SensorRepository sensorRepository;
-
+    private final SensorSocketHandler sensorSocketHandler;
     private final ObjectMapper objectMapper;
 
     /**
@@ -55,6 +57,11 @@ public class SensorService {
                     .build();
             log.info("Sensor data: {}", sensor);
             sensorRepository.save(sensor);
+            try {
+                  sensorSocketHandler.broadcastSensorData(sensor);
+            } catch (IOException e) {
+                log.error("Failed to broadcast sensor data", e);
+            }
         } catch (JsonProcessingException e) {
             log.error("Failed to handle sensor data", e);
         }
