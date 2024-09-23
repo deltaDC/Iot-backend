@@ -64,7 +64,7 @@ public class DeviceController {
     }
 
     @PostMapping("/toggle")
-    public ResponseEntity<BaseResponse> create(@RequestBody ToggleLedRequest request) throws ExecutionException, InterruptedException {
+    public ResponseEntity<BaseResponse> toggle(@RequestBody ToggleLedRequest request) throws ExecutionException, InterruptedException {
         String response = deviceService.toggleLed(request);
 
         String deviceName = deviceService.getDeviceNameById(request.getDeviceId());
