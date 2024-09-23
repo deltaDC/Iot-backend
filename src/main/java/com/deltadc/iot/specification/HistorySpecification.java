@@ -16,6 +16,13 @@ import java.util.Map;
 public class HistorySpecification {
 
 
+    /**
+     * Create a dynamic query based on the criteria map
+     *
+     * @param criteria    The map of key-value pairs to filter the query
+     * @param entityClass The entity class to filter
+     * @return The Specification object
+     */
     public static Specification<History> withDynamicQuery(Map<String, String> criteria, Class<History> entityClass) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();

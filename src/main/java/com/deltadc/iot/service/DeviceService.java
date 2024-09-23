@@ -73,14 +73,15 @@ public class DeviceService {
 
         deviceRepository.save(device);
 
-//        if (mqttStatusResponse == null || !mqttStatusResponse.equals(mqttControlMessage)) {
-//            throw new RuntimeException("LED status failed to update");
-//        }
-
         return mqttStatusResponse;
     }
 
-
+    /**
+     * Get device name by id
+     *
+     * @param deviceId Long
+     * @return String
+     */
     public String getDeviceNameById(Long deviceId) {
         Device device = deviceRepository.findById(deviceId).orElse(null);
         return device != null ? device.getName() : null;

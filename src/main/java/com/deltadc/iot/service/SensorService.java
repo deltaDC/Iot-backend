@@ -92,6 +92,10 @@ public class SensorService {
         );
     }
 
+    /**
+     * Get the latest sensor data
+     * @return The latest Sensor entity
+     */
     public Sensor latest() {
         return sensorRepository.findTopByOrderByIdDesc();
     }
