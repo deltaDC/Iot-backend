@@ -31,7 +31,7 @@ public class DeviceController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Device list fetched successfully")
                         .response(devices)
                         .build()
         );
@@ -44,7 +44,7 @@ public class DeviceController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Device by id fetched successfully")
                         .response(device)
                         .build()
         );
@@ -57,7 +57,7 @@ public class DeviceController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Device created successfully")
                         .response(createdDevice)
                         .build()
         );
@@ -80,7 +80,7 @@ public class DeviceController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Device toggled successfully")
                         .response(response)
                         .build()
         );

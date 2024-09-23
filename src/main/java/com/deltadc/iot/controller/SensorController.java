@@ -54,7 +54,7 @@ public class SensorController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Sensor list fetched successfully")
                         .response(entities)
                         .build()
         );
@@ -67,7 +67,7 @@ public class SensorController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("Sensor latest data fetched successfully")
                         .response(sensor)
                         .build()
         );

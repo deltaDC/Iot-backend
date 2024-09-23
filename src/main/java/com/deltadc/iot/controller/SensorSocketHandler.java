@@ -18,16 +18,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SensorSocketHandler extends TextWebSocketHandler {
 
-//    private final SensorService sensorService;
     private final ObjectMapper objectMapper;
 
-    private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
-
-//    @Override
-//    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-//        Sensor sensorData = sensorService.latest();
-//        sendSensorDataToSession(session, sensorData);
-//    }
+    private final Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {

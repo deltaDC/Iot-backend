@@ -33,7 +33,7 @@ public class HistoryController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message("Success")
+                        .message("History list fetched successfully")
                         .response(entities)
                         .build()
         );
