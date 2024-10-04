@@ -48,12 +48,18 @@ public class SensorService {
             Double brightness = dataNode.has("brightness") && dataNode.get("brightness").has("value")
                     ? dataNode.get("brightness").get("value").asDouble()
                     : null;
+            Double someData = dataNode.has("someData") && dataNode.get("someData").has("value")
+                    ? dataNode.get("someData").get("value").asDouble()
+                    : null;
+
+            log.info("Temperature: {} Humidity: {} Brightness: {} SomeData: {}", temperature, humidity, brightness, someData);
 
             Sensor sensor = Sensor.builder()
                     .data(data)
                     .temperature(temperature)
                     .humidity(humidity)
                     .brightness(brightness)
+                    .someData(someData)
                     .build();
             log.info("Sensor data: {}", sensor);
             sensorRepository.save(sensor);

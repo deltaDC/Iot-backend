@@ -85,4 +85,16 @@ public class DeviceController {
                         .build()
         );
     }
+
+    @PostMapping("/blink")
+    public ResponseEntity<BaseResponse> blink(@RequestBody String request) throws ExecutionException, InterruptedException {
+        String response = deviceService.blinkLed(request);
+
+        return ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message(response)
+                        .build()
+        );
+    }
 }

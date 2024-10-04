@@ -76,6 +76,18 @@ public class DeviceService {
         return mqttStatusResponse;
     }
 
+    public String blinkLed(String request) throws ExecutionException, InterruptedException {
+
+        if(request.equals("LED BLINK")) {
+            mqttService.publish("led/control", "LED BLINK");
+            return mqttService.subscribeAndWaitForMessage("led/status");
+        } else if (request.equals("LED NOT BLINK")) {
+            mqttService.publish("led/control", "LED NOT BLINK");
+            return mqttService.subscribeAndWaitForMessage("led/status");
+        }
+        return "INVALID REQUEST";
+    }
+
     /**
      * Get device name by id
      *
