@@ -93,7 +93,8 @@ public class DeviceController {
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
-                        .message(response)
+                        .message("Led blinked successfully")
+                        .response(response)
                         .build()
         );
     }
