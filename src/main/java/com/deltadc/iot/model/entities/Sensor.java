@@ -21,5 +21,7 @@ public class Sensor extends BaseEntity {
     private Double temperature;
     private Double humidity;
     private Double brightness;
-    private Double someData;
+    private Double wind;
+
+    private String weather;
 }

@@ -29,7 +29,8 @@ public class SensorController {
     private final MqttClient mqttClient;
 
 //    mosquitto_pub -h localhost -t iot-data -m "{\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"}}}"
-//    mosquitto_pub -h localhost -t iot-data -m "{\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"},\"someData\":{\"value\":123,\"unit\":\"Unit\"}}}" -u b21dccn181 -P b21dccn181 -p 1884
+//    mosquitto_pub -h localhost -t iot-data -m "{\"data\":{\"temperature\":{\"value\":22,\"unit\":\"Celsius\"},\"humidity\":{\"value\":45,\"unit\":\"Percentage\"},\"brightness\":{\"value\":300,\"unit\":\"Lux\"},\"wind\":{\"value\":123,\"unit\":\"Unit\"}}}" -u b21dccn181 -P b21dccn181 -p 1884
+//    mosquitto_pub -h localhost -t "led/status" -m "LED NOT BLINK" -u b21dccn181 -P b21dccn181 -p 1884
 
     @PostConstruct
     public void init() {

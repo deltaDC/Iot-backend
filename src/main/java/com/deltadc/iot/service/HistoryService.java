@@ -55,4 +55,8 @@ public class HistoryService {
     public History create(History history) {
         return historyRepository.save(history);
     }
+
+    public long getWarningCnt() {
+        return historyRepository.countByStatus("WARNING");
+    }
 }

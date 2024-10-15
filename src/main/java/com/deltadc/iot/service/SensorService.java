@@ -48,18 +48,34 @@ public class SensorService {
             Double brightness = dataNode.has("brightness") && dataNode.get("brightness").has("value")
                     ? dataNode.get("brightness").get("value").asDouble()
                     : null;
-            Double someData = dataNode.has("someData") && dataNode.get("someData").has("value")
-                    ? dataNode.get("someData").get("value").asDouble()
+            Double wind = dataNode.has("wind") && dataNode.get("wind").has("value")
+                    ? dataNode.get("wind").get("value").asDouble()
                     : null;
 
-            log.info("Temperature: {} Humidity: {} Brightness: {} SomeData: {}", temperature, humidity, brightness, someData);
+            log.info("Temperature: {} Humidity: {} Brightness: {} SomeData: {}", temperature, humidity, brightness, wind);
+
+            String weather = "";
+            if (temperature != null && temperature < 10) {
+                weather = "Cold";
+            } else if (temperature != null && temperature > 30) {
+                weather = "Hot";
+            } else if (humidity != null && humidity > 70) {
+                weather = "Humid";
+            } else if (brightness != null && brightness > 500) {
+                weather = "Sunny";
+            } else if (wind != null && wind > 50) {
+                weather = "Windy";
+            } else {
+                weather = "Normal";
+            }
 
             Sensor sensor = Sensor.builder()
                     .data(data)
                     .temperature(temperature)
                     .humidity(humidity)
                     .brightness(brightness)
-                    .someData(someData)
+                    .wind(wind)
+                    .weather(weather)
                     .build();
             log.info("Sensor data: {}", sensor);
             sensorRepository.save(sensor);

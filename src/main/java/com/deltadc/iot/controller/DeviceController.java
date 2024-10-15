@@ -23,6 +23,7 @@ public class DeviceController {
 
     private final DeviceService deviceService;
     private final HistoryService historyService;
+//    private final AlertService alertService;
 
     @GetMapping("/list")
     public ResponseEntity<BaseResponse> list() {
@@ -90,11 +91,36 @@ public class DeviceController {
     public ResponseEntity<BaseResponse> blink(@RequestBody String request) throws ExecutionException, InterruptedException {
         String response = deviceService.blinkLed(request);
 
+        if(response.equalsIgnoreCase("LED BLINK")) {
+            historyService.create(
+                    History.builder()
+                            .deviceId(4L)
+                            .deviceName("LED4")
+                            .status("WARNING")
+                            .build()
+            );
+        }
+
+//        alertService.increaseAlertCount();
+
         return ResponseEntity.ok(
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
                         .message("Led blinked successfully")
                         .response(response)
+                        .build()
+        );
+    }
+
+    @GetMapping("/getWarningCnt")
+    public ResponseEntity<BaseResponse> getWarningCnt() {
+        long cnt = historyService.getWarningCnt();
+
+        return ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message("Warning cnt fetched successfully")
+                        .response(cnt)
                         .build()
         );
     }
